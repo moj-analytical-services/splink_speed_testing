@@ -31,7 +31,7 @@ def create_comparison_test_table_full_name_most_nonmatching(
             df_1.full_name as full_name_l,
             df_2.full_name as full_name_r
         FROM df_limit as df_1
-        CROSS JOIN df as df_2
+        CROSS JOIN df_limit as df_2
         ORDER BY random()
     )
     TO '{output_path}'
