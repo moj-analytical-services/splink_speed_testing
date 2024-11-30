@@ -138,3 +138,43 @@ def test_comparison_execution_date_cll(
         iterations=1,
         warmup_rounds=0,
     )
+
+
+@mark_with_dialects_excluding("sqlite", "spark")
+def test_comparison_execution_array_intersect(
+    test_helpers,
+    dialect,
+    benchmark,
+    parquet_path_postcode_arrays_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(
+        db_api,
+        parquet_path_postcode_arrays_nonmatching,
+        "postcode_arrays_nonmatching",
+    )
+
+    def setup_comparison_test():
+        sql_condition = (
+            cll.ArrayIntersectLevel("postcode_array", min_intersection=1)
+            .get_comparison_level(dialect)
+            .as_dict()["sql_condition"]
+        )
+
+        sql = f"""
+        select sum(cast({sql_condition} as int)) as c
+        from postcode_arrays_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
