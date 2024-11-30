@@ -1,6 +1,3 @@
-# splink_speed_testing
-
-
 # Splink Speed Testing
 
 A benchmarking suite for testing the performance of [Splink](https://github.com/moj-analytical-services/splink)'s comparison functions across different database backends.
