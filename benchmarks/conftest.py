@@ -1,5 +1,6 @@
 import tempfile
 from pathlib import Path
+import multiprocessing
 import pytest
 
 from splink_speed_testing.create_tables import (
@@ -46,9 +47,9 @@ def _make_spark():
 
     conf = SparkConf()
 
-    conf.set("spark.driver.memory", "6g")
-    conf.set("spark.sql.shuffle.partitions", "1")
-    conf.set("spark.default.parallelism", "1")
+    conf.set("spark.driver.memory", "10g")
+    conf.set("spark.sql.shuffle.partitions", multiprocessing.cpu_count() * 2)
+    conf.set("spark.default.parallelism", multiprocessing.cpu_count() * 2)
     # Add custom similarity functions, which are bundled with Splink
     # documented here: https://github.com/moj-analytical-services/splink_scalaudfs
     path = similarity_jar_location()
@@ -91,7 +92,7 @@ def df_spark(spark):
 # see e.g. https://stackoverflow.com/a/42400786/11811947
 # ruff: noqa: F811
 @pytest.fixture
-def test_helpers(pg_engine):
+def test_helpers():
     # LazyDict to lazy-load helpers
     # That way we do not instantiate helpers we do not need
     # e.g. running only duckdb tests we don't need PostgresTestHelper
@@ -126,7 +127,7 @@ def test_gamma_assert():
 
 
 @pytest.fixture(scope="session")
-def comparison_test_data_path():
+def parquet_path_fullname_nonmatching():
     temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
     output_path = create_comparison_test_table_full_name_most_nonmatching(
         output_dir=temp_dir,

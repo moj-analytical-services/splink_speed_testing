@@ -1,5 +1,6 @@
 # https://github.com/moj-analytical-services/splink/blob/master/tests/helpers.py
 import sqlite3
+import multiprocessing
 from abc import ABC, abstractmethod
 from collections import UserDict
 
@@ -69,9 +70,10 @@ class SparkTestHelper(TestHelper):
         return SparkAPI
 
     def db_api_args(self):
+
         return {
             "spark_session": self.spark,
-            "num_partitions_on_repartition": 2,
+            "num_partitions_on_repartition": multiprocessing.cpu_count() * 2,
             "break_lineage_method": "parquet",
         }
 
