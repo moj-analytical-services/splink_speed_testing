@@ -12,9 +12,9 @@ def execute_comparison(db_api, sql):
 
     # Trigger an action to ensure the query must be executed
     if db_api.sql_dialect.sql_dialect_str == "spark":
-        print(t.toPandas())
+        t.toPandas()
     if db_api.sql_dialect.sql_dialect_str == "duckdb":
-        print(t.df())
+        t.df()
 
 
 @mark_with_dialects_excluding("sqlite", "spark")
@@ -43,7 +43,7 @@ def execute_comparison(db_api, sql):
         ),
     ],
 )
-def test_comparison_execution(
+def test_comparison_execution_str_cll(
     test_helpers,
     dialect,
     benchmark,
@@ -66,6 +66,67 @@ def test_comparison_execution(
         sql = f"""
         select sum(cast({sql_condition} as int)) as c
         from fullname_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
+
+
+@mark_with_dialects_excluding("sqlite", "spark")
+@pytest.mark.parametrize(
+    "comparison_level,col_name",
+    [
+        pytest.param(
+            lambda col: cll.AbsoluteDateDifferenceLevel(
+                col, input_is_string=True, metric="day", threshold=5
+            ),
+            "dob_str",
+            id="Absolute Date Difference Level (string)",
+        ),
+        pytest.param(
+            lambda col: cll.AbsoluteDateDifferenceLevel(
+                col, input_is_string=False, metric="day", threshold=5
+            ),
+            "dob_date",
+            id="Absolute Date Difference Level (date)",
+        ),
+    ],
+)
+def test_comparison_execution_date_cll(
+    test_helpers,
+    dialect,
+    benchmark,
+    comparison_level,
+    col_name,
+    parquet_path_dob_str_and_dob_date_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(
+        db_api,
+        parquet_path_dob_str_and_dob_date_nonmatching,
+        "dob_str_and_dob_date_nonmatching",
+    )
+
+    def setup_comparison_test():
+        sql_condition = (
+            comparison_level(col_name)
+            .get_comparison_level(dialect)
+            .as_dict()["sql_condition"]
+        )
+
+        sql = f"""
+        select sum(cast({sql_condition} as int)) as c
+        from dob_str_and_dob_date_nonmatching
         """
 
         return (db_api, sql), {}

@@ -5,6 +5,7 @@ import pytest
 
 from splink_speed_testing.create_tables import (
     create_comparison_test_table_full_name_most_nonmatching,
+    create_comparison_test_table_dob_str_and_dob_date_most_nonmatching,
 )
 
 import logging
@@ -131,7 +132,16 @@ def parquet_path_fullname_nonmatching():
     temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
     output_path = create_comparison_test_table_full_name_most_nonmatching(
         output_dir=temp_dir,
-        num_output_rows=1e6,
+        num_output_rows=1e7,
     )
 
+    yield output_path
+
+
+@pytest.fixture(scope="session")
+def parquet_path_dob_str_and_dob_date_nonmatching():
+    temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
+    output_path = create_comparison_test_table_dob_str_and_dob_date_most_nonmatching(
+        output_dir=temp_dir, num_output_rows=1e7
+    )
     yield output_path
