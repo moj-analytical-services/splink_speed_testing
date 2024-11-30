@@ -22,7 +22,7 @@ def execute_comparison(db_api,  sql):
 
 
 
-@mark_with_dialects_excluding("sqlite")
+@mark_with_dialects_excluding("sqlite", "spark")
 @pytest.mark.parametrize(
     "comparison_level",
     [
