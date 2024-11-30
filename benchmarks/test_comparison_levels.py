@@ -141,10 +141,21 @@ def test_comparison_execution_date_cll(
 
 
 @mark_with_dialects_excluding("sqlite", "spark")
-def test_comparison_execution_array_intersect(
+@pytest.mark.parametrize(
+    "comparison_level",
+    [
+        pytest.param(
+            lambda col: cll.ArrayIntersectLevel(col, min_intersection=1),
+            id="Array Intersect Level",
+        ),
+        pytest.param(lambda col: cll.ArraySubsetLevel(col), id="Array Subset Level"),
+    ],
+)
+def test_comparison_execution_array(
     test_helpers,
     dialect,
     benchmark,
+    comparison_level,
     parquet_path_postcode_arrays_nonmatching,
 ):
     helper = test_helpers[dialect]
@@ -159,7 +170,7 @@ def test_comparison_execution_array_intersect(
 
     def setup_comparison_test():
         sql_condition = (
-            cll.ArrayIntersectLevel("postcode_array", min_intersection=1)
+            comparison_level("postcode_array")
             .get_comparison_level(dialect)
             .as_dict()["sql_condition"]
         )
