@@ -156,6 +156,11 @@ def create_comparison_test_table_token_freq_arrays(
     con = duckdb.connect()
     df = splink_datasets.historical_50k
 
+    # Make every 10th row first names john to increase size of intersection
+    df.loc[::10, "first_name"] = "john"
+    df.loc[1::10, "first_name"] = "william"
+    df.loc[2::10, "first_name"] = "james"
+
     input_size = int(num_output_rows**0.5)
 
     con.register("df", df)

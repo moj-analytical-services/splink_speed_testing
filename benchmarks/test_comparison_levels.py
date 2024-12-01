@@ -213,7 +213,7 @@ def test_comparison_execution_array(
                     similarity_function="levenshtein",
                 ),
             },
-            id="Raw SQL Pairwise Array Levenshtein",
+            id="Raw SQL Levenshtein for all pairs in array",
         ),
     ],
 )
@@ -258,7 +258,7 @@ def test_comparison_execution_raw_sql(
         pytest.param(
             {
                 "duckdb": duckdb_tf_product_array.format(
-                    token_rel_freq_array_name="token_freq_array"
+                    token_rel_freq_array_name="token_freq_array", threshold=0.0001
                 ),
             },
             id="Raw SQL Token Frequency Product",
@@ -286,7 +286,7 @@ def test_comparison_execution_tf_product(
         sql_condition = raw_sql_condition[dialect]
 
         sql = f"""
-        select sum({sql_condition}) as c
+        select sum(cast({sql_condition} as int)) as c
         from token_freq_arrays_nonmatching
         """
 

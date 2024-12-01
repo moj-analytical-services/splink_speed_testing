@@ -37,28 +37,6 @@ array_max(
 """
 
 
-def calculate_tf_product_array_sql(token_rel_freq_array_name):
-    return f"""
-    list_reduce(
-        list_prepend(
-            1.0,
-            list_transform(
-                {token_rel_freq_array_name}_l,
-                x -> CASE
-                        WHEN array_contains(
-                            list_transform({token_rel_freq_array_name}_r, y -> y.value),
-                            x.value
-                        )
-                        THEN x.rel_freq
-                        ELSE 1.0
-                    END
-            )
-        ),
-        (p, q) -> p * q
-    )
-    """
-
-
 duckdb_tf_product_array = """
     list_reduce(
         list_prepend(
@@ -76,5 +54,5 @@ duckdb_tf_product_array = """
             )
         ),
         (p, q) -> p * q
-    )
+    ) < {threshold}
 """
