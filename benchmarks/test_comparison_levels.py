@@ -4,6 +4,10 @@ import duckdb
 
 from benchmarks.decorator import mark_with_dialects_excluding
 from benchmarks.backends import create_table_fns
+from splink_speed_testing.raw_sql_comparisons import (
+    duckdb_pairwise_array_string_similarity,
+    spark_pairwise_array_string_similarity,
+)
 
 
 def execute_comparison(db_api, sql):
@@ -197,10 +201,18 @@ def test_comparison_execution_array(
     [
         pytest.param(
             {
-                "duckdb": "full_name_l = full_name_r",
-                "spark": "full_name_l = full_name_r",
+                "duckdb": duckdb_pairwise_array_string_similarity.format(
+                    col_name="postcode_array",
+                    threshold=2,
+                    similarity_function="levenshtein",
+                ),
+                "spark": spark_pairwise_array_string_similarity.format(
+                    col_name="postcode_array",
+                    threshold=2,
+                    similarity_function="levenshtein",
+                ),
             },
-            id="Raw SQL Exact Match",
+            id="Raw SQL Pairwise Array Levenshtein",
         ),
     ],
 )
@@ -209,20 +221,22 @@ def test_comparison_execution_raw_sql(
     dialect,
     benchmark,
     raw_sql_condition,
-    parquet_path_fullname_nonmatching,
+    parquet_path_postcode_arrays_nonmatching,
 ):
     helper = test_helpers[dialect]
     db_api = helper.extra_linker_args()["db_api"]
 
     create_table_fn = create_table_fns[dialect]
-    create_table_fn(db_api, parquet_path_fullname_nonmatching, "fullname_nonmatching")
+    create_table_fn(
+        db_api, parquet_path_postcode_arrays_nonmatching, "postcode_arrays_nonmatching"
+    )
 
     def setup_comparison_test():
         sql_condition = raw_sql_condition[dialect]
 
         sql = f"""
         select sum(cast({sql_condition} as int)) as c
-        from fullname_nonmatching
+        from postcode_arrays_nonmatching
         """
 
         return (db_api, sql), {}
