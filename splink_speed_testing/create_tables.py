@@ -111,14 +111,21 @@ def create_comparison_test_table_postcode_arrays_most_nonmatching(
                     FILTER (WHERE postcode_fake IS NOT NULL) AS postcode_array
             FROM df
             GROUP BY cluster
+        ),
+        df_with_arrays AS (
+            SELECT
+                df.*,
+                df_arrays.postcode_array
+            FROM df
+            LEFT JOIN df_arrays USING (cluster)
             ORDER BY random()
             LIMIT {input_size}
         )
         SELECT
             df_1.postcode_array as postcode_array_l,
             df_2.postcode_array as postcode_array_r
-        FROM df_arrays as df_1
-        CROSS JOIN df_arrays as df_2
+        FROM df_with_arrays as df_1
+        CROSS JOIN df_with_arrays as df_2
         ORDER BY random()
         LIMIT {num_output_rows}
     )
