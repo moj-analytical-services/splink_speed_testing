@@ -189,3 +189,51 @@ def test_comparison_execution_array(
         iterations=1,
         warmup_rounds=0,
     )
+
+
+@mark_with_dialects_excluding("sqlite", "spark")
+@pytest.mark.parametrize(
+    "raw_sql_condition",
+    [
+        pytest.param(
+            {
+                "duckdb": "full_name_l = full_name_r",
+                "spark": "full_name_l = full_name_r",
+            },
+            id="Raw SQL Exact Match",
+        ),
+    ],
+)
+def test_comparison_execution_raw_sql(
+    test_helpers,
+    dialect,
+    benchmark,
+    raw_sql_condition,
+    parquet_path_fullname_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(db_api, parquet_path_fullname_nonmatching, "fullname_nonmatching")
+
+    def setup_comparison_test():
+        sql_condition = raw_sql_condition[dialect]
+
+        sql = f"""
+        select sum(cast({sql_condition} as int)) as c
+        from fullname_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
+
+
+# TODO NEXT:  Test dualarayexplode type comparison and a map reduce with tfs
