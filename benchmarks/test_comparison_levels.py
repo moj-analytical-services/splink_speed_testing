@@ -7,6 +7,7 @@ from benchmarks.backends import create_table_fns
 from splink_speed_testing.raw_sql_comparisons import (
     duckdb_pairwise_array_string_similarity,
     spark_pairwise_array_string_similarity,
+    duckdb_tf_product_array,
 )
 
 
@@ -250,4 +251,49 @@ def test_comparison_execution_raw_sql(
     )
 
 
-# TODO NEXT:  Test dualarayexplode type comparison and a map reduce with tfs
+@mark_with_dialects_excluding("sqlite", "spark")
+@pytest.mark.parametrize(
+    "raw_sql_condition",
+    [
+        pytest.param(
+            {
+                "duckdb": duckdb_tf_product_array,
+            },
+            id="Raw SQL Token Frequency Product",
+        ),
+    ],
+)
+def test_comparison_execution_tf_product(
+    test_helpers,
+    dialect,
+    benchmark,
+    raw_sql_condition,
+    parquet_path_token_freq_arrays_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(
+        db_api,
+        parquet_path_token_freq_arrays_nonmatching,
+        "token_freq_arrays_nonmatching",
+    )
+
+    def setup_comparison_test():
+        sql_condition = raw_sql_condition[dialect]
+
+        sql = f"""
+        select sum({sql_condition}) as c
+        from token_freq_arrays_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
