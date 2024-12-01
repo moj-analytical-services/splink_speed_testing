@@ -257,7 +257,9 @@ def test_comparison_execution_raw_sql(
     [
         pytest.param(
             {
-                "duckdb": duckdb_tf_product_array,
+                "duckdb": duckdb_tf_product_array.format(
+                    token_rel_freq_array_name="token_freq_array"
+                ),
             },
             id="Raw SQL Token Frequency Product",
         ),
