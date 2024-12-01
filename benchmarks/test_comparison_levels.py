@@ -4,6 +4,10 @@ import duckdb
 
 from benchmarks.decorator import mark_with_dialects_excluding
 from benchmarks.backends import create_table_fns
+from splink_speed_testing.raw_sql_comparisons import (
+    duckdb_pairwise_array_string_similarity,
+    spark_pairwise_array_string_similarity,
+)
 
 
 def execute_comparison(db_api, sql):
@@ -189,3 +193,61 @@ def test_comparison_execution_array(
         iterations=1,
         warmup_rounds=0,
     )
+
+
+@mark_with_dialects_excluding("sqlite", "spark")
+@pytest.mark.parametrize(
+    "raw_sql_condition",
+    [
+        pytest.param(
+            {
+                "duckdb": duckdb_pairwise_array_string_similarity.format(
+                    col_name="postcode_array",
+                    threshold=2,
+                    similarity_function="levenshtein",
+                ),
+                "spark": spark_pairwise_array_string_similarity.format(
+                    col_name="postcode_array",
+                    threshold=2,
+                    similarity_function="levenshtein",
+                ),
+            },
+            id="Raw SQL Pairwise Array Levenshtein",
+        ),
+    ],
+)
+def test_comparison_execution_raw_sql(
+    test_helpers,
+    dialect,
+    benchmark,
+    raw_sql_condition,
+    parquet_path_postcode_arrays_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(
+        db_api, parquet_path_postcode_arrays_nonmatching, "postcode_arrays_nonmatching"
+    )
+
+    def setup_comparison_test():
+        sql_condition = raw_sql_condition[dialect]
+
+        sql = f"""
+        select sum(cast({sql_condition} as int)) as c
+        from postcode_arrays_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
+
+
+# TODO NEXT:  Test dualarayexplode type comparison and a map reduce with tfs
