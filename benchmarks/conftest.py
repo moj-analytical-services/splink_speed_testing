@@ -54,6 +54,7 @@ def _make_spark():
     conf.set("spark.driver.memory", "10g")
     conf.set("spark.sql.shuffle.partitions", multiprocessing.cpu_count() * 2)
     conf.set("spark.default.parallelism", multiprocessing.cpu_count() * 2)
+    conf.set("spark.sql.parquet.datetimeRebaseModeInRead", "CORRECTED")
     # Add custom similarity functions, which are bundled with Splink
     # documented here: https://github.com/moj-analytical-services/splink_scalaudfs
     path = similarity_jar_location()

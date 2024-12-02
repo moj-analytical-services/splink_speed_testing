@@ -22,7 +22,7 @@ def execute_comparison(db_api, sql):
         t.df()
 
 
-@mark_with_dialects_excluding("sqlite", "spark")
+@mark_with_dialects_excluding("sqlite")
 @pytest.mark.parametrize(
     "comparison_level",
     [
@@ -84,7 +84,7 @@ def test_comparison_execution_str_cll(
     )
 
 
-@mark_with_dialects_excluding("sqlite", "spark")
+@mark_with_dialects_excluding("sqlite")
 @pytest.mark.parametrize(
     "comparison_level,col_name",
     [
@@ -301,7 +301,7 @@ def test_comparison_execution_tf_product(
     )
 
 
-@mark_with_dialects_excluding("sqlite", "spark")
+@mark_with_dialects_excluding("sqlite")
 @pytest.mark.parametrize(
     "comparison_level",
     [
