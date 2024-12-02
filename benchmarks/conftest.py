@@ -8,6 +8,7 @@ from splink_speed_testing.create_tables import (
     create_comparison_test_table_dob_str_and_dob_date_most_nonmatching,
     create_comparison_test_table_postcode_arrays_most_nonmatching,
     create_comparison_test_table_token_freq_arrays,
+    create_comparison_test_table_lat_lng_most_nonmatching,
 )
 
 import logging
@@ -166,6 +167,16 @@ def parquet_path_postcode_arrays_nonmatching():
 def parquet_path_token_freq_arrays_nonmatching():
     temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
     output_path = create_comparison_test_table_token_freq_arrays(
+        output_dir=temp_dir,
+        num_output_rows=NUM_ROWS,
+    )
+    yield output_path
+
+
+@pytest.fixture(scope="session")
+def parquet_path_lat_lng_nonmatching():
+    temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
+    output_path = create_comparison_test_table_lat_lng_most_nonmatching(
         output_dir=temp_dir,
         num_output_rows=NUM_ROWS,
     )

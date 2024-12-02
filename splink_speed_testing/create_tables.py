@@ -230,3 +230,53 @@ def create_comparison_test_table_token_freq_arrays(
     con.close()
 
     return output_path
+
+
+def create_comparison_test_table_lat_lng_most_nonmatching(
+    num_output_rows: int = 1000,
+    random_seed: int = 42,
+    output_dir: Path = None,
+) -> Path:
+    con = duckdb.connect()
+
+    input_size = int(num_output_rows**0.5)
+
+    con.execute("SELECT setseed(0.42);")
+
+    output_path = output_dir / "lat_lng_nonmatching.parquet"
+
+    sql = f"""
+    COPY (
+        WITH random_points AS (
+            SELECT
+                49.9 + random() * (58.7 - 49.9) as lat,
+                -8.2 + random() * (1.8 - (-8.2)) as lng
+            FROM range({input_size})
+        )
+        SELECT
+            p1.lat as lat_l,
+            p1.lng as lng_l,
+            p2.lat as lat_r,
+            p2.lng as lng_r
+        FROM random_points as p1
+        CROSS JOIN random_points as p2
+        ORDER BY random()
+        LIMIT {num_output_rows}
+    )
+    TO '{output_path}'
+    (FORMAT 'parquet')
+    """
+
+    con.execute(sql)
+
+    # Print count and first 2 rows
+    count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
+    print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+
+    sample_sql = f"SELECT * FROM read_parquet('{output_path}') LIMIT 2"
+    print("\nFirst 2 rows:")
+    con.sql(sample_sql).show(max_width=10000)
+
+    con.close()
+
+    return output_path

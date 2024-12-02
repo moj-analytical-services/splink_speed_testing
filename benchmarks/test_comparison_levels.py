@@ -299,3 +299,51 @@ def test_comparison_execution_tf_product(
         iterations=1,
         warmup_rounds=0,
     )
+
+
+@mark_with_dialects_excluding("sqlite", "spark")
+@pytest.mark.parametrize(
+    "comparison_level",
+    [
+        pytest.param(
+            lambda lat_col, long_col: cll.DistanceInKMLevel(
+                lat_col=lat_col, long_col=long_col, km_threshold=5
+            ),
+            id="Distance In KM Level",
+        ),
+    ],
+)
+def test_comparison_execution_distance_in_km(
+    test_helpers,
+    dialect,
+    benchmark,
+    comparison_level,
+    parquet_path_lat_lng_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(db_api, parquet_path_lat_lng_nonmatching, "lat_lng_nonmatching")
+
+    def setup_comparison_test():
+        sql_condition = (
+            comparison_level("lat", "lng")
+            .get_comparison_level(dialect)
+            .as_dict()["sql_condition"]
+        )
+
+        sql = f"""
+        select sum(cast({sql_condition} as int)) as c
+        from lat_lng_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
