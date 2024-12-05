@@ -3,7 +3,7 @@ import pytest
 
 dialect_groups = {
     "duckdb": ["default"],
-    "spark": [],
+    "spark": ["default"],
     "sqlite": [],
 }
 for groups in dialect_groups.values():

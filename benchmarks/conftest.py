@@ -36,13 +36,13 @@ logger = logging.getLogger(__name__)
 NUM_ROWS = 1e7
 
 
-def pytest_sessionstart(session):
-    os.makedirs("./temp_data", exist_ok=True)
+# def pytest_sessionstart(session):
+#     os.makedirs("./temp_data", exist_ok=True)
 
 
-def pytest_sessionfinish(session, exitstatus):
-    if exitstatus == 0:  # pytest.ExitCode.OK
-        shutil.rmtree("./temp_data")
+# def pytest_sessionfinish(session, exitstatus):
+#     if exitstatus == 0 and os.path.exists("./temp_data"):
+#         shutil.rmtree("./temp_data")
 
 
 def pytest_collection_modifyitems(items, config):

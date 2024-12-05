@@ -389,7 +389,7 @@ def test_comparison_execution_cosine_similarity(
 
         sql = f"""
         select sum(cast({sql_condition} as int)) as c
-        from cosine_similarity_nonmatching
+        from cosine_similarity_nonmatching_array_size_10
         """
 
         return (db_api, sql), {}
