@@ -39,6 +39,11 @@ def create_comparison_test_table_full_name_most_nonmatching(
     """
 
     con.execute(sql)
+
+    count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
+    print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+    print(f"File size: {output_path.stat().st_size / (1024*1024):.2f} MB")
+
     con.close()
 
     return output_path
@@ -82,6 +87,11 @@ def create_comparison_test_table_dob_str_and_dob_date_most_nonmatching(
     """
 
     con.execute(sql)
+
+    count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
+    print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+    print(f"File size: {output_path.stat().st_size / (1024*1024):.2f} MB")
+
     con.close()
 
     return output_path
@@ -138,6 +148,7 @@ def create_comparison_test_table_postcode_arrays_most_nonmatching(
     # Print count and first 10 rows
     count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
     print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+    print(f"File size: {output_path.stat().st_size / (1024*1024):.2f} MB")
 
     sample_sql = f"SELECT * FROM read_parquet('{output_path}') LIMIT 2"
     print("\nFirst 2 rows:")
@@ -222,6 +233,7 @@ def create_comparison_test_table_token_freq_arrays(
     # Print count and first 10 rows
     count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
     print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+    print(f"File size: {output_path.stat().st_size / (1024*1024):.2f} MB")
 
     sample_sql = f"SELECT * FROM read_parquet('{output_path}') LIMIT 2"
     print("\nFirst 2 rows:")
@@ -272,6 +284,57 @@ def create_comparison_test_table_lat_lng_most_nonmatching(
     # Print count and first 2 rows
     count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
     print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+    print(f"File size: {output_path.stat().st_size / (1024*1024):.2f} MB")
+
+    sample_sql = f"SELECT * FROM read_parquet('{output_path}') LIMIT 2"
+    print("\nFirst 2 rows:")
+    con.sql(sample_sql).show(max_width=10000)
+
+    con.close()
+
+    return output_path
+
+
+def create_comparison_test_table_cosine_similarity(
+    num_output_rows: int = 1000,
+    random_seed: int = 42,
+    output_dir: Path = None,
+) -> Path:
+    con = duckdb.connect()
+
+    input_size = int(num_output_rows**0.5)
+    vector_length = 100
+    con.execute("SELECT setseed(0.42);")
+
+    output_path = output_dir / "cosine_similarity_nonmatching.parquet"
+
+    sql = f"""
+    COPY (
+        WITH random_vectors AS (
+            SELECT
+                array_agg(CAST(random() AS FLOAT))::FLOAT[{vector_length}] AS vector
+            FROM generate_series(1, {input_size}) AS group_number,
+                generate_series(1, {vector_length})
+            GROUP BY group_number
+        )
+        SELECT
+            v1.vector::FLOAT[{vector_length}] as vector_l,
+            v2.vector::FLOAT[{vector_length}] as vector_r
+        FROM random_vectors as v1
+        CROSS JOIN random_vectors as v2
+        ORDER BY random()
+        LIMIT {num_output_rows}
+    )
+    TO '{output_path}'
+    (FORMAT 'parquet')
+    """
+
+    con.execute(sql)
+
+    # Print count and first 2 rows
+    count_sql = f"SELECT COUNT(*) FROM read_parquet('{output_path}')"
+    print(f"\nTotal rows: {con.execute(count_sql).fetchone()[0]:,}")
+    print(f"File size: {output_path.stat().st_size / (1024*1024):.2f} MB")
 
     sample_sql = f"SELECT * FROM read_parquet('{output_path}') LIMIT 2"
     print("\nFirst 2 rows:")

@@ -145,7 +145,7 @@ def test_comparison_execution_date_cll(
     )
 
 
-@mark_with_dialects_excluding("sqlite", "spark")
+@mark_with_dialects_excluding("sqlite")
 @pytest.mark.parametrize(
     "comparison_level",
     [
@@ -336,6 +336,71 @@ def test_comparison_execution_distance_in_km(
         sql = f"""
         select sum(cast({sql_condition} as int)) as c
         from lat_lng_nonmatching
+        """
+
+        return (db_api, sql), {}
+
+    benchmark.pedantic(
+        execute_comparison,
+        setup=setup_comparison_test,
+        rounds=5,
+        iterations=1,
+        warmup_rounds=0,
+    )
+
+
+@mark_with_dialects_excluding("sqlite", "spark")
+@pytest.mark.parametrize(
+    "comparison_level",
+    [
+        pytest.param(
+            lambda col: cll.CosineSimilarityLevel(col, similarity_threshold=0.8),
+            id="Cosine Similarity Level",
+        ),
+    ],
+)
+def test_comparison_execution_cosine_similarity(
+    test_helpers,
+    dialect,
+    benchmark,
+    comparison_level,
+    parquet_path_cosine_similarity_nonmatching,
+):
+    helper = test_helpers[dialect]
+    db_api = helper.extra_linker_args()["db_api"]
+
+    create_table_fn = create_table_fns[dialect]
+    create_table_fn(
+        db_api,
+        parquet_path_cosine_similarity_nonmatching,
+        "cosine_similarity_nonmatching",
+    )
+
+    # Cosine similarity level requires fixed-size arrays in duckdb
+    # Parquet format’s lack of inherent support for fixed-size arrays, leading DuckDB
+    # to interpret these columns as variable-length lists (DOUBLE[]) when reading from
+    # Parquet files.
+    if dialect == "duckdb":
+        db_api._execute_sql_against_backend("""
+        ALTER TABLE cosine_similarity_nonmatching
+        ALTER COLUMN vector_l TYPE DOUBLE[100]
+        """)
+        db_api._execute_sql_against_backend("""
+        ALTER TABLE cosine_similarity_nonmatching
+        ALTER COLUMN vector_r TYPE DOUBLE[100]
+        """)
+        print("Fixed cosine_similarity_nonmatching data types")
+
+    def setup_comparison_test():
+        sql_condition = (
+            comparison_level("vector")
+            .get_comparison_level(dialect)
+            .as_dict()["sql_condition"]
+        )
+
+        sql = f"""
+        select sum(cast({sql_condition} as int)) as c
+        from cosine_similarity_nonmatching
         """
 
         return (db_api, sql), {}

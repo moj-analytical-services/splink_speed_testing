@@ -1,14 +1,16 @@
+import os
 import tempfile
 from pathlib import Path
 import multiprocessing
 import pytest
-
+import shutil
 from splink_speed_testing.create_tables import (
     create_comparison_test_table_full_name_most_nonmatching,
     create_comparison_test_table_dob_str_and_dob_date_most_nonmatching,
     create_comparison_test_table_postcode_arrays_most_nonmatching,
     create_comparison_test_table_token_freq_arrays,
     create_comparison_test_table_lat_lng_most_nonmatching,
+    create_comparison_test_table_cosine_similarity,
 )
 
 import logging
@@ -30,6 +32,16 @@ from benchmarks.helpers import (
 )
 
 logger = logging.getLogger(__name__)
+
+NUM_ROWS = 1e6
+
+
+def pytest_sessionstart(session):
+    os.makedirs("./temp_data", exist_ok=True)
+
+
+def pytest_sessionfinish(session, exitstatus):
+    shutil.rmtree("./temp_data")
 
 
 def pytest_collection_modifyitems(items, config):
@@ -131,9 +143,6 @@ def test_gamma_assert():
     return _test_gamma_assert
 
 
-NUM_ROWS = 1e6
-
-
 @pytest.fixture(scope="session")
 def parquet_path_fullname_nonmatching():
     temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
@@ -178,6 +187,16 @@ def parquet_path_token_freq_arrays_nonmatching():
 def parquet_path_lat_lng_nonmatching():
     temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
     output_path = create_comparison_test_table_lat_lng_most_nonmatching(
+        output_dir=temp_dir,
+        num_output_rows=NUM_ROWS,
+    )
+    yield output_path
+
+
+@pytest.fixture(scope="session")
+def parquet_path_cosine_similarity_nonmatching():
+    temp_dir = Path(tempfile.mkdtemp(dir="./temp_data"))
+    output_path = create_comparison_test_table_cosine_similarity(
         output_dir=temp_dir,
         num_output_rows=NUM_ROWS,
     )
