@@ -372,7 +372,7 @@ def test_comparison_execution_cosine_similarity(
     create_table_fn(
         db_api,
         parquet_path_cosine_similarity_nonmatching,
-        "cosine_similarity_nonmatching",
+        "cosine_similarity_nonmatching_array_size_10",
     )
 
     # Cosine similarity level requires fixed-size arrays in duckdb
