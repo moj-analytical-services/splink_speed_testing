@@ -1,6 +1,5 @@
 import pytest
 import splink.comparison_level_library as cll
-import duckdb
 
 from benchmarks.decorator import mark_with_dialects_excluding
 from benchmarks.backends import create_table_fns
@@ -213,7 +212,7 @@ def test_comparison_execution_array(
                     similarity_function="levenshtein",
                 ),
             },
-            id="Raw SQL Levenshtein for all pairs in array",
+            id="SQL Levenshtein for all pairs in array",
         ),
     ],
 )
