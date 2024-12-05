@@ -380,16 +380,6 @@ def test_comparison_execution_cosine_similarity(
     # Parquet format’s lack of inherent support for fixed-size arrays, leading DuckDB
     # to interpret these columns as variable-length lists (DOUBLE[]) when reading from
     # Parquet files.
-    if dialect == "duckdb":
-        db_api._execute_sql_against_backend("""
-        ALTER TABLE cosine_similarity_nonmatching
-        ALTER COLUMN vector_l TYPE DOUBLE[100]
-        """)
-        db_api._execute_sql_against_backend("""
-        ALTER TABLE cosine_similarity_nonmatching
-        ALTER COLUMN vector_r TYPE DOUBLE[100]
-        """)
-        print("Fixed cosine_similarity_nonmatching data types")
 
     def setup_comparison_test():
         sql_condition = (

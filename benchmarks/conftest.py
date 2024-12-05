@@ -33,7 +33,7 @@ from benchmarks.helpers import (
 
 logger = logging.getLogger(__name__)
 
-NUM_ROWS = 1e6
+NUM_ROWS = 1e7
 
 
 def pytest_sessionstart(session):
@@ -41,7 +41,8 @@ def pytest_sessionstart(session):
 
 
 def pytest_sessionfinish(session, exitstatus):
-    shutil.rmtree("./temp_data")
+    if exitstatus == 0:  # pytest.ExitCode.OK
+        shutil.rmtree("./temp_data")
 
 
 def pytest_collection_modifyitems(items, config):
