@@ -1,0 +1,1002 @@
+{
+    "machine_info": {
+        "node": "Robins-Mac-mini.local",
+        "processor": "arm",
+        "machine": "arm64",
+        "python_compiler": "Clang 16.0.0 (clang-1600.0.26.3)",
+        "python_implementation": "CPython",
+        "python_implementation_version": "3.11.10",
+        "python_version": "3.11.10",
+        "python_build": [
+            "main",
+            "Sep  7 2024 01:03:31"
+        ],
+        "release": "24.1.0",
+        "system": "Darwin",
+        "cpu": {
+            "python_version": "3.11.10.final.0 (64 bit)",
+            "cpuinfo_version": [
+                9,
+                0,
+                0
+            ],
+            "cpuinfo_version_string": "9.0.0",
+            "arch": "ARM_8",
+            "bits": 64,
+            "count": 10,
+            "arch_string_raw": "arm64",
+            "brand_raw": "Apple M4"
+        }
+    },
+    "commit_info": {
+        "id": "b5b7ee569dab10ff304d1123984a2f446917fe9e",
+        "time": "2024-12-05T12:41:15Z",
+        "author_time": "2024-12-05T12:41:15Z",
+        "dirty": false,
+        "project": "splink_speed_testing",
+        "branch": "main"
+    },
+    "benchmarks": [
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Exact Match-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Exact Match-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<class 'splink.internals.comparison_level_library.ExactMatchLevel'>]",
+                "dialect": "duckdb"
+            },
+            "param": "Exact Match-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.020944458001395105,
+                "max": 0.02200516699849686,
+                "mean": 0.021347416999924464,
+                "stddev": 0.00047452989651871545,
+                "rounds": 5,
+                "median": 0.021056458999737515,
+                "iqr": 0.00076311499969961,
+                "q1": 0.021011271000134002,
+                "q3": 0.021774385999833612,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.020944458001395105,
+                "hd15iqr": 0.02200516699849686,
+                "ops": 46.84407485943328,
+                "total": 0.10673708499962231,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Exact Match-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Exact Match-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<class 'splink.internals.comparison_level_library.ExactMatchLevel'>]",
+                "dialect": "spark"
+            },
+            "param": "Exact Match-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.12441591700007848,
+                "max": 4.42162695800107,
+                "mean": 1.000890333600546,
+                "stddev": 1.9123788639630643,
+                "rounds": 5,
+                "median": 0.13899920900075813,
+                "iqr": 1.109202822250154,
+                "q1": 0.13343254225037526,
+                "q3": 1.2426353645005292,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.12441591700007848,
+                "hd15iqr": 4.42162695800107,
+                "ops": 0.9991104583882401,
+                "total": 5.00445166800273,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Jaro Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Jaro Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768720>]",
+                "dialect": "duckdb"
+            },
+            "param": "Jaro Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.15294458300013503,
+                "max": 0.15535799999997835,
+                "mean": 0.15383817500041913,
+                "stddev": 0.0009833842173029722,
+                "rounds": 5,
+                "median": 0.1533886249999341,
+                "iqr": 0.0013842909993400099,
+                "q1": 0.15315805250111225,
+                "q3": 0.15454234350045226,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.15294458300013503,
+                "hd15iqr": 0.15535799999997835,
+                "ops": 6.500337123716369,
+                "total": 0.7691908750020957,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Jaro Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Jaro Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768720>]",
+                "dialect": "spark"
+            },
+            "param": "Jaro Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 2.3183193749991915,
+                "max": 5.03834841599928,
+                "mean": 2.874659941599748,
+                "stddev": 1.2096977672742406,
+                "rounds": 5,
+                "median": 2.331908291998843,
+                "iqr": 0.715978540499691,
+                "q1": 2.318365563000498,
+                "q3": 3.034344103500189,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 2.3183193749991915,
+                "hd15iqr": 5.03834841599928,
+                "ops": 0.34786723310427464,
+                "total": 14.37329970799874,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Jaro-Winkler Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Jaro-Winkler Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f7687c0>]",
+                "dialect": "duckdb"
+            },
+            "param": "Jaro-Winkler Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.15564866600107052,
+                "max": 0.1606128749990603,
+                "mean": 0.15763775859995804,
+                "stddev": 0.0020527723188170756,
+                "rounds": 5,
+                "median": 0.15666545900057827,
+                "iqr": 0.0031092084982446977,
+                "q1": 0.1562012607505494,
+                "q3": 0.1593104692487941,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.15564866600107052,
+                "hd15iqr": 0.1606128749990603,
+                "ops": 6.343657819556603,
+                "total": 0.7881887929997902,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Jaro-Winkler Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Jaro-Winkler Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f7687c0>]",
+                "dialect": "spark"
+            },
+            "param": "Jaro-Winkler Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.7757823749998352,
+                "max": 2.8649329580002814,
+                "mean": 1.2108889415994781,
+                "stddev": 0.9249072954611759,
+                "rounds": 5,
+                "median": 0.804795791998913,
+                "iqr": 0.5614763329999732,
+                "q1": 0.7777013437494134,
+                "q3": 1.3391776767493866,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.7757823749998352,
+                "hd15iqr": 2.8649329580002814,
+                "ops": 0.8258395676477874,
+                "total": 6.054444707997391,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Damerau-Levenshtein Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Damerau-Levenshtein Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768860>]",
+                "dialect": "duckdb"
+            },
+            "param": "Damerau-Levenshtein Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 4.693130124998788,
+                "max": 4.7497493749997375,
+                "mean": 4.718110316799721,
+                "stddev": 0.02157292417272527,
+                "rounds": 5,
+                "median": 4.7111222080002335,
+                "iqr": 0.028683781000381714,
+                "q1": 4.7047242504995666,
+                "q3": 4.733408031499948,
+                "iqr_outliers": 0,
+                "stddev_outliers": 2,
+                "outliers": "2;0",
+                "ld15iqr": 4.693130124998788,
+                "hd15iqr": 4.7497493749997375,
+                "ops": 0.21194926206776293,
+                "total": 23.590551583998604,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Damerau-Levenshtein Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Damerau-Levenshtein Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768860>]",
+                "dialect": "spark"
+            },
+            "param": "Damerau-Levenshtein Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 14.228710417000912,
+                "max": 16.337253540999882,
+                "mean": 14.682109341600153,
+                "stddev": 0.9264128609524327,
+                "rounds": 5,
+                "median": 14.258774750000157,
+                "iqr": 0.6073295309997775,
+                "q1": 14.236758729250141,
+                "q3": 14.844088260249919,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 14.228710417000912,
+                "hd15iqr": 16.337253540999882,
+                "ops": 0.06811010439532753,
+                "total": 73.41054670800077,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Levenshtein Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Levenshtein Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768900>]",
+                "dialect": "duckdb"
+            },
+            "param": "Levenshtein Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.610243957999046,
+                "max": 0.6275619579992053,
+                "mean": 0.6157036249995145,
+                "stddev": 0.007041347062432149,
+                "rounds": 5,
+                "median": 0.6126142920002167,
+                "iqr": 0.00813524974955726,
+                "q1": 0.6111948334996669,
+                "q3": 0.6193300832492241,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.610243957999046,
+                "hd15iqr": 0.6275619579992053,
+                "ops": 1.6241580516937653,
+                "total": 3.078518124997572,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Levenshtein Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Levenshtein Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768900>]",
+                "dialect": "spark"
+            },
+            "param": "Levenshtein Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 1.2074302910004917,
+                "max": 3.1554547089999687,
+                "mean": 1.6123385834001964,
+                "stddev": 0.8628546636082215,
+                "rounds": 5,
+                "median": 1.220977999999377,
+                "iqr": 0.5181300417507373,
+                "q1": 1.2154818230001183,
+                "q3": 1.7336118647508556,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 1.2074302910004917,
+                "hd15iqr": 3.1554547089999687,
+                "ops": 0.6202171245515566,
+                "total": 8.061692917000983,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Jaccard Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Jaccard Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f7689a0>]",
+                "dialect": "duckdb"
+            },
+            "param": "Jaccard Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.06024812499890686,
+                "max": 0.061906667000585,
+                "mean": 0.060826116600219395,
+                "stddev": 0.0007324956191686343,
+                "rounds": 5,
+                "median": 0.060411000000385684,
+                "iqr": 0.0011405417512833083,
+                "q1": 0.06028587474975211,
+                "q3": 0.06142641650103542,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.06024812499890686,
+                "hd15iqr": 0.061906667000585,
+                "ops": 16.440306498153017,
+                "total": 0.30413058300109697,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_str_cll[Jaccard Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_str_cll[Jaccard Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f7689a0>]",
+                "dialect": "spark"
+            },
+            "param": "Jaccard Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 1.466116832998523,
+                "max": 3.6179076669995993,
+                "mean": 1.909613124999305,
+                "stddev": 0.9550810928928731,
+                "rounds": 5,
+                "median": 1.479715290999593,
+                "iqr": 0.5596555840020301,
+                "q1": 1.4747974582483039,
+                "q3": 2.034453042250334,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 1.466116832998523,
+                "hd15iqr": 3.6179076669995993,
+                "ops": 0.5236662792629078,
+                "total": 9.548065624996525,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_date_cll[Absolute Date Difference Level (string)-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_date_cll[Absolute Date Difference Level (string)-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768c20>]",
+                "col_name": "dob_str",
+                "dialect": "duckdb"
+            },
+            "param": "Absolute Date Difference Level (string)-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.294549416999871,
+                "max": 0.30198016699978325,
+                "mean": 0.29925087520023225,
+                "stddev": 0.0030357861002927046,
+                "rounds": 5,
+                "median": 0.29996850000134145,
+                "iqr": 0.004457781499240809,
+                "q1": 0.29724591675039846,
+                "q3": 0.3017036982496393,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.294549416999871,
+                "hd15iqr": 0.30198016699978325,
+                "ops": 3.341677778990248,
+                "total": 1.4962543760011613,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_date_cll[Absolute Date Difference Level (string)-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_date_cll[Absolute Date Difference Level (string)-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768c20>]",
+                "col_name": "dob_str",
+                "dialect": "spark"
+            },
+            "param": "Absolute Date Difference Level (string)-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 1.578559542000221,
+                "max": 4.631283665999945,
+                "mean": 2.20754128319968,
+                "stddev": 1.355028337777505,
+                "rounds": 5,
+                "median": 1.6129342909989646,
+                "iqr": 0.787371281250671,
+                "q1": 1.5881431042494114,
+                "q3": 2.3755143855000824,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 1.578559542000221,
+                "hd15iqr": 4.631283665999945,
+                "ops": 0.4529926609347792,
+                "total": 11.0377064159984,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_date_cll[Absolute Date Difference Level (date)-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_date_cll[Absolute Date Difference Level (date)-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768cc0>]",
+                "col_name": "dob_date",
+                "dialect": "duckdb"
+            },
+            "param": "Absolute Date Difference Level (date)-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.02428637500088371,
+                "max": 0.02445975000046019,
+                "mean": 0.024383416600176133,
+                "stddev": 6.493093410775668e-05,
+                "rounds": 5,
+                "median": 0.024377040999752353,
+                "iqr": 8.028199908949318e-05,
+                "q1": 0.024350843500542396,
+                "q3": 0.02443112549963189,
+                "iqr_outliers": 0,
+                "stddev_outliers": 2,
+                "outliers": "2;0",
+                "ld15iqr": 0.02428637500088371,
+                "hd15iqr": 0.02445975000046019,
+                "ops": 41.01147990855295,
+                "total": 0.12191708300088067,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_date_cll[Absolute Date Difference Level (date)-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_date_cll[Absolute Date Difference Level (date)-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768cc0>]",
+                "col_name": "dob_date",
+                "dialect": "spark"
+            },
+            "param": "Absolute Date Difference Level (date)-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.15032233300007647,
+                "max": 2.5501979580003535,
+                "mean": 0.6365640915995755,
+                "stddev": 1.0697642808839358,
+                "rounds": 5,
+                "median": 0.161567749999449,
+                "iqr": 0.6026672194998355,
+                "q1": 0.1565060829993854,
+                "q3": 0.7591733024992209,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.15032233300007647,
+                "hd15iqr": 2.5501979580003535,
+                "ops": 1.57093372560047,
+                "total": 3.1828204579978774,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_array[Array Intersect Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_array[Array Intersect Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768d60>]",
+                "dialect": "duckdb"
+            },
+            "param": "Array Intersect Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.6261000000013155,
+                "max": 0.6861150830009137,
+                "mean": 0.6506176834001962,
+                "stddev": 0.02641202238866842,
+                "rounds": 5,
+                "median": 0.6402568749999773,
+                "iqr": 0.04540717700137975,
+                "q1": 0.6290544689991293,
+                "q3": 0.6744616460005091,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.6261000000013155,
+                "hd15iqr": 0.6861150830009137,
+                "ops": 1.5370009538841538,
+                "total": 3.2530884170009813,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_array[Array Intersect Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_array[Array Intersect Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768d60>]",
+                "dialect": "spark"
+            },
+            "param": "Array Intersect Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.44659725000019534,
+                "max": 4.9346873330014205,
+                "mean": 1.374985916600417,
+                "stddev": 1.9903514729870704,
+                "rounds": 5,
+                "median": 0.4993427919998794,
+                "iqr": 1.1945631147505082,
+                "q1": 0.4482423435001692,
+                "q3": 1.6428054582506775,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.44659725000019534,
+                "hd15iqr": 4.9346873330014205,
+                "ops": 0.7272801764198787,
+                "total": 6.874929583002086,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_array[Array Subset Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_array[Array Subset Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768e00>]",
+                "dialect": "duckdb"
+            },
+            "param": "Array Subset Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.611420833000011,
+                "max": 0.6473055000005843,
+                "mean": 0.6218205500001204,
+                "stddev": 0.014747319793296194,
+                "rounds": 5,
+                "median": 0.6153485419999924,
+                "iqr": 0.015093322999746306,
+                "q1": 0.6129295832502066,
+                "q3": 0.6280229062499529,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.611420833000011,
+                "hd15iqr": 0.6473055000005843,
+                "ops": 1.6081810097781528,
+                "total": 3.109102750000602,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_array[Array Subset Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_array[Array Subset Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f768e00>]",
+                "dialect": "spark"
+            },
+            "param": "Array Subset Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.44119279199912853,
+                "max": 4.2620371249995515,
+                "mean": 1.2242800749998424,
+                "stddev": 1.6984404582547543,
+                "rounds": 5,
+                "median": 0.4531747080000059,
+                "iqr": 1.0084687077505805,
+                "q1": 0.4455427919997419,
+                "q3": 1.4540114997503224,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.44119279199912853,
+                "hd15iqr": 4.2620371249995515,
+                "ops": 0.8168065628284679,
+                "total": 6.121400374999212,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_raw_sql[SQL Levenshtein for all pairs in array-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_raw_sql[SQL Levenshtein for all pairs in array-duckdb]",
+            "params": {
+                "raw_sql_condition": {
+                    "duckdb": "\nlist_max(\n                    list_transform(\n                        flatten(\n                            list_transform(\n                                \"postcode_array_l\",\n                                x -> list_transform(\n                                    \"postcode_array_r\",\n                                    y -> [x,y]\n                                )\n                            )\n                        ),\n                        pair -> levenshtein(pair[1], pair[2])\n                    )\n                ) >= 2\n",
+                    "spark": "\narray_max(\n    transform(\n        DualArrayExplode(postcode_array_l, postcode_array_r),\n        x -> levenshtein(x._1, x._2)\n    )\n) >= 2\n"
+                },
+                "dialect": "duckdb"
+            },
+            "param": "SQL Levenshtein for all pairs in array-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 2.758779499999946,
+                "max": 2.8219090410002536,
+                "mean": 2.7885337079998864,
+                "stddev": 0.028936290048499652,
+                "rounds": 5,
+                "median": 2.774612832999992,
+                "iqr": 0.05101126075078355,
+                "q1": 2.767343124499348,
+                "q3": 2.8183543852501316,
+                "iqr_outliers": 0,
+                "stddev_outliers": 2,
+                "outliers": "2;0",
+                "ld15iqr": 2.758779499999946,
+                "hd15iqr": 2.8219090410002536,
+                "ops": 0.358611408257734,
+                "total": 13.942668539999431,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_tf_product[Raw SQL Token Frequency Product-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_tf_product[Raw SQL Token Frequency Product-duckdb]",
+            "params": {
+                "raw_sql_condition": {
+                    "duckdb": "\n    list_reduce(\n        list_prepend(\n            1.0,\n            list_transform(\n                token_freq_array_l,\n                x -> CASE\n                        WHEN array_contains(\n                            list_transform(token_freq_array_r, y -> y.value),\n                            x.value\n                        )\n                        THEN x.rel_freq\n                        ELSE 1.0\n                    END\n            )\n        ),\n        (p, q) -> p * q\n    ) < 0.0001\n"
+                },
+                "dialect": "duckdb"
+            },
+            "param": "Raw SQL Token Frequency Product-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.6602767500007758,
+                "max": 0.6840462500003923,
+                "mean": 0.6695522250003705,
+                "stddev": 0.009470700399866284,
+                "rounds": 5,
+                "median": 0.6663422500005254,
+                "iqr": 0.013468156249928143,
+                "q1": 0.6627172500002416,
+                "q3": 0.6761854062501698,
+                "iqr_outliers": 0,
+                "stddev_outliers": 1,
+                "outliers": "1;0",
+                "ld15iqr": 0.6602767500007758,
+                "hd15iqr": 0.6840462500003923,
+                "ops": 1.4935354743977538,
+                "total": 3.3477611250018526,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_distance_in_km[Distance In KM Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_distance_in_km[Distance In KM Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f769080>]",
+                "dialect": "duckdb"
+            },
+            "param": "Distance In KM Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.11017912500028615,
+                "max": 0.12241995899967151,
+                "mean": 0.11502338360005523,
+                "stddev": 0.00461652290303522,
+                "rounds": 5,
+                "median": 0.11403295899981458,
+                "iqr": 0.005401427250490087,
+                "q1": 0.11205599999993865,
+                "q3": 0.11745742725042874,
+                "iqr_outliers": 0,
+                "stddev_outliers": 2,
+                "outliers": "2;0",
+                "ld15iqr": 0.11017912500028615,
+                "hd15iqr": 0.12241995899967151,
+                "ops": 8.693884397255028,
+                "total": 0.5751169180002762,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_distance_in_km[Distance In KM Level-spark]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_distance_in_km[Distance In KM Level-spark]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f769080>]",
+                "dialect": "spark"
+            },
+            "param": "Distance In KM Level-spark",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.5176729169997998,
+                "max": 2.186101082999812,
+                "mean": 0.8638953251997009,
+                "stddev": 0.7392169391473918,
+                "rounds": 5,
+                "median": 0.5383288749999338,
+                "iqr": 0.43027485374977914,
+                "q1": 0.5268494797496714,
+                "q3": 0.9571243334994506,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.5176729169997998,
+                "hd15iqr": 2.186101082999812,
+                "ops": 1.1575476459128156,
+                "total": 4.3194766259985045,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_comparison_execution_cosine_similarity[Cosine Similarity Level-duckdb]",
+            "fullname": "benchmarks/test_comparison_levels.py::test_comparison_execution_cosine_similarity[Cosine Similarity Level-duckdb]",
+            "params": {
+                "comparison_level": "UNSERIALIZABLE[<function <lambda> at 0x10f7691c0>]",
+                "dialect": "duckdb"
+            },
+            "param": "Cosine Similarity Level-duckdb",
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.021684749999622,
+                "max": 0.02705500000047323,
+                "mean": 0.023203916800412117,
+                "stddev": 0.002202733070669532,
+                "rounds": 5,
+                "median": 0.02219412500016915,
+                "iqr": 0.0019927187499888532,
+                "q1": 0.022003250250691053,
+                "q3": 0.023995969000679906,
+                "iqr_outliers": 1,
+                "stddev_outliers": 1,
+                "outliers": "1;1",
+                "ld15iqr": 0.021684749999622,
+                "hd15iqr": 0.02705500000047323,
+                "ops": 43.09617245232664,
+                "total": 0.11601958400206058,
+                "iterations": 1
+            }
+        }
+    ],
+    "datetime": "2024-12-05T12:46:10.041171+00:00",
+    "version": "5.1.0"
+}
