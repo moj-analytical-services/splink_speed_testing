@@ -36,7 +36,7 @@ array_max(
 ) >= {threshold}
 """
 
-
+# See https://github.com/RobinL/uk_address_matcher/issues/11
 duckdb_tf_product_array = """
     list_reduce(
         list_prepend(
